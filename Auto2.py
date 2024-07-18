@@ -6,23 +6,19 @@ import time
 
 browser = Firefox()
 
-link = "https://google.com"
-
-browser.get(link)
+browser.get("https://google.com")
 
 input_area = browser.find_element(By.NAME,"q")
 
 input_area.send_keys("Instituto Joga Junto")
 input_area.send_keys(Keys.ENTER)
 
+time.sleep(10)
 
-time.sleep(5)
-
-result_seach = browser.find_elements(By.TAG_NAME,'h3')
-
+result_search = browser.find_elements(By.TAG_NAME,'h3')
 check = False
 
-for result in result_seach:
+for result in result_search:
         if "Instituto Joga Junto" in result.text:
             result.click()
             print("Link selecionado")
@@ -31,6 +27,24 @@ for result in result_seach:
 title = browser.title
 assert "Instituto Joga Junto" in title
 
-browser.get("")
-input_area.send_keys("Contato")
-input_area.send_keys(Keys.ENTER)
+browser.find_element(By.XPATH, '//*[@id="mensagem"]')
+browser.send_keys("Meu primeiro script de automação - CYBERMASTERS")
+    # Encontrar o campo de entrada (ajuste o seletor conforme necessário)
+result_search = browser.find_elements(By.TAG_NAME, 'a')
+check = False
+for result in result_search:
+        if "Contato" in result.text:
+            result.click()
+            print("Contato selecionado")
+        check = True
+        break
+
+    # Enviar a mensagem
+#input_area.send_keys('Meu primeiro script de automação - CYBERMASTERS')
+#input_area.send_keys(Keys.RETURN)  # Enviar a mensagem (se necessário)
+
+    # Esperar um pouco para ver a ação
+time.sleep(10)
+
+# Fechar o navegador
+browser.quit()
